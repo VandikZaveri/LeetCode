@@ -1,0 +1,39 @@
+class Solution:
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        
+        vals = {}
+        solution = set()
+        nums = sorted(nums)
+        flag = 0
+        for i, num in enumerate(nums):
+            vals[num] = i
+            if num == 0:
+                flag += 1
+            
+        
+        pos = 0
+        for i, j in enumerate(nums):
+             if j > 0:
+                pos = i
+                break
+
+        n = len(nums) 
+        if len(vals.keys()) == 1 and n>=3 and nums[0] == 0:
+            return [[nums[0]]*3]
+        
+        
+        for i in range(pos):
+            for j in range(pos, n):
+                diff = 0 - nums[i] - nums[j]
+                if diff in vals:
+                    if vals[diff] not in [i, j]: 
+                    
+                        solution.add(tuple(sorted([nums[i], nums[j], diff])))
+            
+        if flag > 2:
+            solution.add(tuple([0,0,0]))
+        return list(solution)
