@@ -5,19 +5,12 @@ class Solution:
         
         ans = 0
         n = len(points)
-        comb = fact = {}
-        fact[1] = fact[0] = 1
-        fact[2] = 2
+        comb =  {}
+       
         comb[0] = comb[1] = 0
-        comb[2] = 2
-        comb[3] = 6
-        
-        for i in range(3,10):
-            fact[i] = fact[i-1]*i 
-          
-        
-        for i in range(4, 10):
-            comb[i] = fact[i]/fact[i-2]
+  
+        for i in range(2, 10):
+            comb[i] = i*(i-1)
         
         
         for i in range(n):
@@ -29,8 +22,6 @@ class Solution:
                 
             for x in d:
                 ans += comb[d[x]]
-                        
-                    
-        
+    
         return int(ans)
     
