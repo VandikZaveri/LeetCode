@@ -1,0 +1,36 @@
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+How many possible unique paths are there?
+
+
+
+
+#solution
+
+class Solution:
+    
+    def uniquePaths(self, m: int, n: int) -> int:
+        self.m = m
+        self.n = n
+        if m == 1 or n == 1:
+            return 1
+        self.visited = {}
+        return self._uniquePath(0, 0)
+        
+        
+    def _uniquePath(self, i, j):
+        
+        if (i, j) in self.visited:
+            return self.visited[(i, j)]
+        
+        if i == self.m - 1 or j == self.n - 1:
+            return 1
+        
+        
+        count = self._uniquePath(i + 1, j) + self._uniquePath(i, j + 1)
+        self.visited[(i, j)] = count
+        
+        return count
+  
