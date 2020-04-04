@@ -1,0 +1,25 @@
+The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1
+
+class Solution:
+    memorize = {}
+  
+    def fibo(self, i):
+
+        if i in self.memorize:
+            return self.memorize[i]
+
+        if i == 1:
+            return 1
+        if i == 0:
+            return 0
+
+        return self.fibo(i - 1) + self.fibo(i - 2)
+
+        
+    def fib(self, N):
+        """
+        :type N: int
+        :rtype: int
+        """
+        self.memorize[N] = self.fibo(N)
+        return self.memorize[N]      
