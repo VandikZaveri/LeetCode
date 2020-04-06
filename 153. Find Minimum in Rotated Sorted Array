@@ -1,0 +1,36 @@
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+(i.e.,  [0,1,2,4,5,6,7] might become  [4,5,6,7,0,1,2]).
+
+Find the minimum element.
+
+You may assume no duplicate exists in the array.
+
+
+
+class Solution:
+    def __init__(self):
+        self.min = 1000
+    
+    def binarySearch(self, lo, hi, nums):
+        print(nums[lo:hi+1])
+        if lo > hi:
+            return False
+
+        mid = (lo + hi)//2
+
+        if nums[mid] < nums[hi]:
+            self.min = min(nums[mid], self.min)
+            return self.binarySearch(lo, mid - 1, nums)
+
+        else:
+            self.min = min(nums[mid], self.min)
+            return self.binarySearch(mid + 1, len(nums) - 1, nums)
+
+    
+    def findMin(self, nums: List[int]) -> int:
+        
+        self.min = nums[0]
+        self.binarySearch(0, len(nums) - 1, nums)
+        return self.min
+        
