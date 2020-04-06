@@ -1,0 +1,30 @@
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        tens = -1
+        number = 0
+        
+        for i in num1[::-1]:
+            digit = ''
+            tens += 1
+            flag = 0
+            i = int(i)
+            for j in num2[::-1]:
+                j = int(j)
+                ans = i *j + flag
+                digit += str(ans %10)
+                ans = ans//10
+                flag = ans
+            
+            if flag != 0:
+                digit += str(flag)
+                
+            number += int(digit[::-1]) * 10**tens
+            print(number)
+            
+        return str(number)
+                
+            
+    
