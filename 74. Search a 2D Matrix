@@ -1,0 +1,53 @@
+Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+Integers in each row are sorted from left to right.
+The first integer of each row is greater than the last integer of the previous row.
+
+
+class Solution:
+    
+    def listSearch(self, start, end, matrix, target):
+        
+        if start > end:
+            return -1
+        
+        if start == end:
+            return matrix[start]
+        
+        mid = (start + end)//2
+        
+        if matrix[mid][0] > target:
+            return self.listSearch(start, mid - 1, matrix, target)
+            
+        elif matrix[mid][-1] < target:
+            return self.listSearch(mid + 1, end, matrix, target)
+        
+        else:
+            return matrix[mid]
+            
+    def binarySearch(self, lo, hi, nums, target):
+        
+        if lo > hi:
+            return False
+        
+        mid = (lo + hi)//2
+        
+        if nums[mid] == target:
+            return True
+        
+        if nums[mid] > target:
+            return self.binarySearch(lo, mid - 1, nums, target)
+        
+        else:
+            return self.binarySearch(mid + 1, len(nums) - 1, nums, target)
+        
+    
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        
+        matrix = self.listSearch(0, len(matrix) - 1, matrix, target)
+        if matrix == -1:
+            return False
+        
+        print(matrix)
+        return self.binarySearch(0, len(matrix) - 1, matrix , target)
+       
