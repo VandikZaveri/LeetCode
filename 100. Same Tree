@@ -1,0 +1,43 @@
+Given two binary trees, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
+
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        self.flag = 0
+    
+    def search(self, node1, node2):
+        if self.flag:
+            return
+        
+        if node1 == None and node2 == None:
+            return
+        
+        elif node1 == None or node2 == None:
+            self.flag = 1
+            return
+        
+        if node1.val == node2.val:
+            self.search(node1.left, node2.left)
+            self.search(node1.right, node2.right)
+            
+        else:
+            self.flag = 1
+            return
+        
+    
+    
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        self.search(p, q)
+        
+        return self.flag == 0
+        
