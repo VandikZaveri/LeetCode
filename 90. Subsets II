@@ -1,0 +1,25 @@
+Given a collection of integers that might contain duplicates, nums, return all possible subsets (the power set).
+
+Note: The solution set must not contain duplicate subsets.
+
+
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        
+        subset = [[]]
+        nums.sort()
+        result = set()
+        for num in nums:
+            subset +=  [[num] + i for i in subset]
+            
+            
+        result.add(tuple([]))    
+        for i in subset[1:]:
+            
+            result.add(tuple(i))
+            
+        return result
+        
+            
+        
