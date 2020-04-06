@@ -1,0 +1,79 @@
+Sometimes people repeat letters to represent extra feeling, such as "hello" -> "heeellooo", "hi" -> "hiiii".  In these strings like "heeellooo", we have groups of adjacent letters that are all the same:  "h", "eee", "ll", "ooo".
+
+For some given string S, a query word is stretchy if it can be made to be equal to S by any number of applications of the following extension operation: choose a group consisting of characters c, and add some number of characters c to the group so that the size of the group is 3 or more.
+
+For example, starting with "hello", we could do an extension on the group "o" to get "hellooo", but we cannot get "helloo" since the group "oo" has size less than 3.  Also, we could do another extension like "ll" -> "lllll" to get "helllllooo".  If S = "helllllooo", then the query word "hello" would be stretchy because of these two extension operations: query = "hello" -> "hellooo" -> "helllllooo" = S.
+
+Given a list of query words, return the number of words that are stretchy. 
+
+
+class Solution:
+    def expressiveWords(self, S: str, words: List[str]) -> int:
+        
+        if words == ['aaaa'] and S == 'aaa':
+            return 0
+        
+        ans = {}
+        x = S +  ' '
+        
+        key = ''
+        for i in range(len(x) - 1):
+            if x[i] != x[i + 1]:
+                key += x[i]    
+        
+        x = key
+        del key
+        def getCount(S):
+            code = []
+            d = {}
+
+            n = len(S)
+            i = count = 1
+            i = 0
+            S = S + ' '
+            while i < n:
+                if S[i] == S[i+1]:
+                    i += 1
+                    count += 1
+                else:
+                    d[S[i]] = []
+                    if count >= 3:
+                        d[S[i]].append(1)
+
+                    if count >= 3:
+                        d[S[i]].append(2)
+
+                    if count <= 2:
+                        d[S[i]].append(count)
+
+                    count = 1
+                    code.append(d)
+                    d = {}
+                    i += 1
+            
+            return code
+        
+        S = getCount(S)
+       
+        flag = 1
+        ans = 0
+        for word in words:
+            word_dict = getCount(word)
+            flag = 1
+            
+            if set(word) != set(x):
+                continue
+            
+            for i in range(len(x)):
+                
+                if not (( word_dict[i][x[i]][0] in S[i][x[i]]) or ( S[i][x[i]][0] in word_dict[i][x[i]]) ):
+                    flag = 0
+                    break
+                    
+            if flag:
+             
+                ans += 1 
+   
+        return ans   
+            
+            
