@@ -1,0 +1,34 @@
+Given two binary search trees root1 and root2.
+
+Return a list containing all the integers from both trees sorted in ascending order.
+
+ 
+ 
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        self.lst1 = []
+      
+    def search(self, node):
+        if node is None:
+            return
+       
+        self.search(node.left)
+        self.lst1.append(node.val)
+        self.search(node.right)
+       
+    
+    def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
+        
+        self.search(root1)
+        self.search(root2)
+        self.lst1.sort()
+        
+        return self.lst1
+        
