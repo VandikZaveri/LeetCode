@@ -10,27 +10,20 @@ How many possible unique paths are there?
 #solution
 
 class Solution:
-    
     def uniquePaths(self, m: int, n: int) -> int:
-        self.m = m
-        self.n = n
-        if m == 1 or n == 1:
-            return 1
-        self.visited = {}
-        return self._uniquePath(0, 0)
+        self.m = m - 1
+        self.n = n - 1
+        self.visited = []
+        return self.path(0, 0)
         
         
-    def _uniquePath(self, i, j):
-        
-        if (i, j) in self.visited:
-            return self.visited[(i, j)]
-        
-        if i == self.m - 1 or j == self.n - 1:
+    def path(self, i, j):
+        if i == self.m or j == self.n:
             return 1
         
+        if (i, j) not in self.visited:
+            self.visited[(i, j)] = self.path(i, j + 1) + self.path(i + 1, j)
         
-        count = self._uniquePath(i + 1, j) + self._uniquePath(i, j + 1)
-        self.visited[(i, j)] = count
+        return self.visited[(i, j)]
         
-        return count
-  
+        
