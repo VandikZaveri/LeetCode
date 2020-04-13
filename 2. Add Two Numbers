@@ -1,3 +1,8 @@
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -7,39 +12,37 @@
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         flag = 0
+        p = l1
         
-        l3 = ListNode(0)
-        y = l3
-        while l1 != None or l2 != None:
-            l3.val = l1.val + l2.val +  flag
+        while l1 or l2:
             
-            if l3.val > 9:
-                l3.val -= 10
-                flag = 1
-            else:
-                flag = 0
- 
-            if l1.next == None:
+            if l1 and l2:
+                temp = l1.val + l2.val + flag
+                
+            elif l1 and not l2:
+                temp = l1.val + flag
+                
+            elif not l1 and l2:
+                temp = l2.val + flag
+                
+            l1.val = temp % 10
+            flag = temp // 10
+            
+            if l2:
+                l2 = l2.next
+                
+            if l2 and not l1.next:
                 l1.next = ListNode(0)
-            
-            if l2.next == None:
-                l2.next = ListNode(0)
-        
+             
+            p2 = l1
             l1 = l1.next
-            l2 = l2.next
-            
-            if l1.val == 0 and l2.val == 0:
-                if l1.next == None and l2.next == None:
-                    break
-            l3.next = ListNode(0)
-            l3 = l3.next
-            
-        if flag == 1:
-            l3.next = ListNode(0)
-            l3 = l3.next
-            l3.val = 1
+
+    
+        if flag !=0:
+            p2.next = ListNode(flag)
+                
+                
+        return p
+                
+                
         
-       
-            
-        
-        return y
