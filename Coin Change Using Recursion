@@ -1,0 +1,32 @@
+
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        self.visited = {}
+        self.min = float('inf')
+        coins.sort(key = lambda x: -x)
+        self.countCoins(coins, 0, amount, 0)
+        
+        if self.min == float('inf'):
+            return -1
+        
+        return self.min
+    
+    
+    def countCoins(self, coins, amt, target, num_coin):
+        
+        if amt in self.visited:
+            if num_coin >= self.visited[amt]:
+                return
+        
+        if amt == target:
+            self.min = min(num_coin, self.min)
+            return
+        
+        if amt > target:
+            return
+        
+        self.visited[amt] = num_coin
+        
+        for coin in coins:
+            self.countCoins(coins, amt + coin, target, num_coin + 1)
+        
