@@ -1,0 +1,44 @@
+Given an n-ary tree, return the preorder traversal of its nodes' values.
+
+Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
+
+ 
+
+Follow up:
+
+Recursive solution is trivial, could you do it iteratively?
+
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+from collections import deque
+class Solution:
+    
+    def preorder(self, root: 'Node') -> List[int]:
+        
+        if root is None:
+            return root
+        
+        q = deque()
+        q.append(root)
+        pre = []
+        
+        while q:
+            node = q.popleft()
+            if node is None:
+                continue
+                
+            pre.append(node.val)
+            
+            for i in node.children[::-1]:
+                q.appendleft(i)
+            
+        
+        return pre
+        
+        
