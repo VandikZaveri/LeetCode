@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+from collections import deque
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        q = deque()
+        pre = []
+        q.append(root)
+        
+        
+        while q:
+            node = q.popleft()
+            
+            if node is None:
+                continue
+                
+            pre.append(node.val)
+            
+            q.appendleft(node.right)
+            q.appendleft(node.left)
+            
+        return pre
+        
+        
