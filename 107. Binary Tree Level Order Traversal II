@@ -1,0 +1,32 @@
+Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+from collections import deque
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        
+        q = deque()
+        q.appendleft([root, 0])
+        
+        nodes = {}
+        while q:
+            [node, h] = q.popleft()
+            
+            if node is None:
+                continue
+            
+            if h not in nodes:
+                nodes[h] = []
+            
+            nodes[h].append(node.val)
+            
+            q.appendleft([node.right, h + 1])
+            q.appendleft([node.left, h + 1])
+            
+        return list(nodes.values())[::-1]
