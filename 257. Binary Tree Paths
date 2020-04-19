@@ -1,0 +1,36 @@
+Given a binary tree, return all root-to-leaf paths.
+
+Note: A leaf is a node with no children.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    
+    def search(self, node, path):
+        if node is None:
+            return
+        
+        path += '->' + str(node.val)
+        if not node.left and not node.right:
+            self.paths.append(path[2:])
+            return
+        
+        self.search(node.left, path)
+        self.search(node.right, path)
+        
+        
+        
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if root is None:
+            return []
+        
+        self.paths = []
+        self.search(root, '')
+        return self.paths
+        
+        
